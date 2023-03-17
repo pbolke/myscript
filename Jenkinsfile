@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                echo 'I have testing Poll SCM'
+                echo 'you are my team member'
             }
         }
     }
