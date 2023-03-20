@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                echo 'you are my team member'
+                echo 'this is testsssh keyyou are my team member'
             }
         }
     }
