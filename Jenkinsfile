@@ -10,6 +10,10 @@ pipeline {
             customWorkspace '/data/jenkins_workspace_pipeline/workspace'
         }
     }
+    // using the Timestamper plugin we can add timestamps to the console log
+    options {
+        timestamps()
+    }
     stages {
         stage('Build') {
             steps {
