@@ -6,6 +6,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'This is Build stage.'
+                sh "mvn -version" 
+                sh "git -version" 
             }
         }
         stage('deploy'){
