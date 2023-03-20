@@ -3,9 +3,14 @@ pipeline {
         label 'Dev_system'
     }
     stages {
-        stage('Hello') {
+        stage('Build') {
             steps {
-                echo 'this is testsssh keyyou are my team member'
+                echo 'This is Build stage.'
+            }
+        }
+        stage('deploy'){
+            steps{
+                echo "This is deployment stage."
             }
         }
     }
