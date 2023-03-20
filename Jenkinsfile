@@ -8,6 +8,7 @@ pipeline {
                 echo 'This is Build stage.'
                 sh "mvn -version" 
                 sh "git --version" 
+                sh "whoami"            
             }
         }
         stage('deploy'){
