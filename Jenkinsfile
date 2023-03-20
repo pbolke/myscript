@@ -6,8 +6,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'This is Build stage.'
-                sh cd /tmp/
-                sh git clone https://oivm.pl.s2-eu.capgemini.com/gitlab/gitlab-admins/safran-aircraft-engines.git
+                sh "mvn -version"                
             }
         }
         stage('deploy'){
