@@ -1,0 +1,9 @@
+version: '2'
+services:
+  proxy-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      container_name: proxy-server
+      #context: Haproxy
+      
