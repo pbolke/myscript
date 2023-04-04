@@ -2,7 +2,7 @@ version: '2'
 services:
   proxy-server:
     build:
-      context: .
+      context: ./Haproxy
       dockerfile: Dockerfile
       container_name: proxy-server
       #context: Haproxy
