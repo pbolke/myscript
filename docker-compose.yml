@@ -1,0 +1,6 @@
+version: '2'
+services: 
+  proxy-server:
+    container_name: proxy-server
+    image: haproxy
+    
