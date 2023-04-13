@@ -28,9 +28,22 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'creating docker container'
-                sh '''cd $WORKSPACE
-                #sudo docker rmi anguler-web
+                sh '''## Check Container exist or not
+                DOCKER_WEB=$(sudo docker ps | grep pipeline-web | awk {\'print $1\'})
+                if [[ -z "$DOCKER_WEB" ]]
+                then
+                    echo "The webserver container is not running"
+                else
+                    echo "The Webserver container $DOCKER_WEB is running... Going to stopping"
+                    ## Stop webserver container 
+                    sudo docker stop pipeline-web
+                fi
+                ## Remove Container 
+                sudo docker rm pipeline-web
+                ## Remove existing image
+                sudo docker rmi pipeline-web-image
                 ## Build new Docker image
+                cd $WORKSPACE
                 sudo docker build -t pipeline-web-image .
                 ## Create and Start docker container
                 sudo docker run -it -d --name pipeline-web -p 5555:80 pipeline-web-image'''
