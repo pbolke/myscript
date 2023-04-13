@@ -19,6 +19,9 @@ pipeline {
             steps {
                 echo 'checkout AngulerJS code.'
                 checkout scmGit(branches: [[name: '*/FrontendSprint4']], extensions: [], userRemoteConfigs: [[credentialsId: 'f70401a7-6a25-4e2b-beca-179b7dd93358', url: 'https://oivm.pl.s2-eu.capgemini.com/gitlab/gitlab-admins/safran-aircraft-engines.git']])
+                sh '''## steps for build AngulerJS code
+                cd $WORKSPACE
+                npm install --force'''
                 slackSend channel: '#jenkins', message: 'Build successfully '
             }
         }     
