@@ -24,6 +24,17 @@ pipeline {
                 npm install --force'''
                 slackSend channel: '#jenkins', message: 'Build successfully '
             }
+        stage('Deploy') {
+            steps {
+                echo 'creating docker container'
+                sh '''cd $WORKSPACE
+                #sudo docker rmi anguler-web
+                ## Build new Docker image
+                sudo docker build -t pipeline-web-image .
+                ## Create and Start docker container
+                sudo docker run -it -d --name pipeline-web -p 5555:80 pipeline-web-image'''
+                slackSend channel: '#jenkins', message: 'Create container successfully '
+            }       
         }     
     }
 }
