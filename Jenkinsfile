@@ -24,6 +24,7 @@ pipeline {
                 npm install --force'''
                 slackSend channel: '#jenkins', message: 'Build successfully '
             }
+        }
         stage('Deploy') {
             steps {
                 echo 'creating docker container'
