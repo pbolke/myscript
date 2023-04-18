@@ -1,0 +1,185 @@
+version: "3"
+services:
+  selenium-hub:
+    image: selenium/hub:3.141.59
+    ports:
+      - "${port}:4444"
+    container_name: ${JOB_NAME}
+    environment:
+      GRID_MAX_SESSION: 6
+      GRID_BROWSER_TIMEOUT: 30000
+      GRID_TIMEOUT: 30000
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://127.0.0.1:4444/wd/hub/status"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  chrome-dbug:
+    image: selenium/node-chrome:3.141
+    volumes:
+      - /dev/shm:/dev/shm
+      - /var/tmp/:/var/tmp/
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=${JOB_NAME}
+      - HUB_PORT=4444
+      - NODE_MAX_SESSION=1
+      - NODE_MAX_INSTANCES=1
+      - http_proxy=http://217.147.78.194:8080
+      - https_proxy=http://217.147.78.194:8080
+      - no_proxy="localhost, 127.0.0.1, wwwvagrant.royalmail.com, b2bvagrant.royalmail.com, b2bqa.royalmail.com, b2bqb.royalmail.com, b2bqt.royalmail.com, b2bqe.royalmail.com, b2btst.royalmail.com, wwwqa.royalmail.com, wwwqb.royalmail.com, wwwqt.royalmail.com, wwwtst.royalmail.com, wwwqa.royalmailgroup.com, wwwqt.royalmailgroup.com, eibqa.royalmail.com, eibqb.royalmail.com, eibqt.royalmail.com, eibtst.royalmail.com, .postoffice.co.uk, .royalmailgroup.com, wwwqs.royalmail.com, wwwqe.royalmail.com, wwwqa.parcelforce.com, wwwqt.parcelforce.com, wwwqs.parcelforce.com, wwwqe.parcelforce.com, wwwqa.ryml.me, idpqa.royalmailgroup.com, am01qa.royalmailgroup.com, am01qt.royalmailgroup.com, www8qa.royalmail.com, www8qt.royalmail.com, www8qs.royalmail.com, fam21qa.royalmailgroup.com, fam21qt.royalmailgroup.com, fam21qs.royalmailgroup.com, fam21tst.royalmailgroup.com, www.royalmail.com, www.parcelforce.com, idp.royalmailgroup.com, services.royalmail.com, parcel.royalmail.com"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://127.0.0.1:4444/wd/hub/status"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    extra_hosts:
+      - "services.royalmail.com:77.95.81.235"
+      - "www.royalmail.com:77.95.81.226"
+      - "www.parcelforce.com:77.95.81.228"
+      - "idp.royalmailgroup.com:77.95.81.233"
+  chrome-sleepy:
+    image: selenium/node-chrome:3.141
+    volumes:
+      - /dev/shm:/dev/shm
+      - /var/tmp/:/var/tmp/
+    depends_on:
+      - selenium-hub
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:5555"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    environment:
+      - HUB_HOST=${JOB_NAME}
+      - HUB_PORT=4444
+      - NODE_MAX_SESSION=1
+      - NODE_MAX_INSTANCES=1
+      - http_proxy=http://217.147.78.194:8080
+      - https_proxy=http://217.147.78.194:8080
+      - no_proxy="localhost, 127.0.0.1, wwwvagrant.royalmail.com, b2bvagrant.royalmail.com, b2bqa.royalmail.com, b2bqb.royalmail.com, b2bqt.royalmail.com, b2bqe.royalmail.com, b2btst.royalmail.com, wwwqa.royalmail.com, wwwqb.royalmail.com, wwwqt.royalmail.com, wwwqe.royalmail.com, wwwtst.royalmail.com, wwwqa.royalmailgroup.com, wwwqt.royalmailgroup.com, eibqa.royalmail.com, eibqb.royalmail.com, eibqt.royalmail.com, eibtst.royalmail.com, .postoffice.co.uk, .royalmailgroup.com, wwwqs.royalmail.com, wwwqa.parcelforce.com, wwwqt.parcelforce.com, wwwqs.parcelforce.com, wwwqe.parcelforce.com, wwwqa.ryml.me, idpqa.royalmailgroup.com, am01qa.royalmailgroup.com, am01qt.royalmailgroup.com, www8qa.royalmail.com, www8qt.royalmail.com, www8qs.royalmail.com, fam21qa.royalmailgroup.com, fam21qt.royalmailgroup.com, fam21qs.royalmailgroup.com, fam21tst.royalmailgroup.com, www.royalmail.com, www.parcelforce.com, idp.royalmailgroup.com, services.royalmail.com, parcel.royalmail.com"
+    extra_hosts:
+      - "services.royalmail.com:77.95.81.235"
+      - "www.royalmail.com:77.95.81.226"
+      - "www.parcelforce.com:77.95.81.228"
+      - "idp.royalmailgroup.com:77.95.81.233"
+  chrome-clever:
+    image: selenium/node-chrome:3.141
+    volumes:
+      - /dev/shm:/dev/shm
+      - /var/tmp/:/var/tmp/
+    depends_on:
+      - selenium-hub
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:5555"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    environment:
+      - HUB_HOST=${JOB_NAME}
+      - HUB_PORT=4444
+      - NODE_MAX_SESSION=1
+      - NODE_MAX_INSTANCES=1
+      - http_proxy=http://217.147.78.194:8080
+      - https_proxy=http://217.147.78.194:8080
+      - no_proxy="localhost, 127.0.0.1, wwwvagrant.royalmail.com, b2bvagrant.royalmail.com, b2bqa.royalmail.com, b2bqb.royalmail.com, b2bqt.royalmail.com, b2bqe.royalmail.com, b2btst.royalmail.com, wwwqa.royalmail.com, wwwqb.royalmail.com, wwwqt.royalmail.com, wwwtst.royalmail.com, wwwqa.royalmailgroup.com, wwwqt.royalmailgroup.com, wwwqe.royalmailgroup.com, eibqa.royalmail.com, eibqb.royalmail.com, eibqt.royalmail.com, eibtst.royalmail.com, .postoffice.co.uk, .royalmailgroup.com, wwwqs.royalmail.com, wwwqa.parcelforce.com, wwwqt.parcelforce.com, wwwqs.parcelforce.com, wwwqe.parcelforce.com, wwwqa.ryml.me, idpqa.royalmailgroup.com, am01qa.royalmailgroup.com, am01qt.royalmailgroup.com, www8qa.royalmail.com, www8qt.royalmail.com, www8qs.royalmail.com, fam21qa.royalmailgroup.com, fam21qt.royalmailgroup.com, fam21qs.royalmailgroup.com, fam21tst.royalmailgroup.com, www.royalmail.com, www.parcelforce.com, idp.royalmailgroup.com, services.royalmail.com, parcel.royalmail.com"
+    extra_hosts:
+      - "services.royalmail.com:77.95.81.235"
+      - "www.royalmail.com:77.95.81.226"
+      - "www.parcelforce.com:77.95.81.228"
+      - "idp.royalmailgroup.com:77.95.81.233"
+  chrome-gallant:
+    image: selenium/node-chrome:3.141
+    volumes:
+      - /dev/shm:/dev/shm
+      - /var/tmp/:/var/tmp/
+    depends_on:
+      - selenium-hub
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:5555"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    environment:
+      - HUB_HOST=${JOB_NAME}
+      - HUB_PORT=4444
+      - NODE_MAX_SESSION=1
+      - NODE_MAX_INSTANCES=1
+      - http_proxy=http://217.147.78.194:8080
+      - https_proxy=http://217.147.78.194:8080
+      - no_proxy="localhost, 127.0.0.1, wwwvagrant.royalmail.com, b2bvagrant.royalmail.com, b2bqa.royalmail.com, b2bqb.royalmail.com, b2bqt.royalmail.com, b2bqe.royalmail.com, b2btst.royalmail.com, wwwqa.royalmail.com, wwwqb.royalmail.com, wwwqt.royalmail.com, wwwqe.royalmail.com, wwwtst.royalmail.com, wwwqa.royalmailgroup.com, wwwqt.royalmailgroup.com, eibqa.royalmail.com, eibqb.royalmail.com, eibqt.royalmail.com, eibtst.royalmail.com, .postoffice.co.uk, .royalmailgroup.com, wwwqs.royalmail.com, wwwqa.parcelforce.com, wwwqt.parcelforce.com, wwwqs.parcelforce.com, wwwqe.parcelforce.com, wwwqa.ryml.me, idpqa.royalmailgroup.com, am01qa.royalmailgroup.com, am01qt.royalmailgroup.com, www8qa.royalmail.com, www8qt.royalmail.com, www8qs.royalmail.com, fam21qa.royalmailgroup.com, fam21qt.royalmailgroup.com, fam21qs.royalmailgroup.com, fam21tst.royalmailgroup.com, www.royalmail.com, www.parcelforce.com, idp.royalmailgroup.com, services.royalmail.com, parcel.royalmail.com"
+    extra_hosts:
+      - "services.royalmail.com:77.95.81.235"
+      - "www.royalmail.com:77.95.81.226"
+      - "www.parcelforce.com:77.95.81.228"
+      - "idp.royalmailgroup.com:77.95.81.233"
+  chrome-upbeat:
+    image: selenium/node-chrome:3.141
+    volumes:
+      - /dev/shm:/dev/shm
+      - /var/tmp/:/var/tmp/
+    depends_on:
+      - selenium-hub
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:5555"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    environment:
+      - HUB_HOST=${JOB_NAME}
+      - HUB_PORT=4444
+      - NODE_MAX_SESSION=1
+      - NODE_MAX_INSTANCES=1
+      - http_proxy=http://217.147.78.194:8080
+      - https_proxy=http://217.147.78.194:8080
+      - no_proxy="localhost, 127.0.0.1, wwwvagrant.royalmail.com, b2bvagrant.royalmail.com, b2bqa.royalmail.com, b2bqb.royalmail.com, b2bqt.royalmail.com, b2bqe.royalmail.com, b2btst.royalmail.com, wwwqa.royalmail.com, wwwqb.royalmail.com, wwwqt.royalmail.com, wwwtst.royalmail.com, wwwqa.royalmailgroup.com, wwwqt.royalmailgroup.com, eibqa.royalmail.com, eibqb.royalmail.com, eibqt.royalmail.com, eibtst.royalmail.com, .postoffice.co.uk, .royalmailgroup.com, wwwqs.royalmail.com, wwwqe.royalmail.com, wwwqa.parcelforce.com, wwwqt.parcelforce.com, wwwqe.parcelforce.com, wwwqs.parcelforce.com, wwwqa.ryml.me, idpqa.royalmailgroup.com, am01qa.royalmailgroup.com, am01qt.royalmailgroup.com, www8qa.royalmail.com, www8qt.royalmail.com, www8qs.royalmail.com, fam21qa.royalmailgroup.com, fam21qt.royalmailgroup.com, fam21qs.royalmailgroup.com, fam21tst.royalmailgroup.com, www.royalmail.com, www.parcelforce.com, idp.royalmailgroup.com, services.royalmail.com, parcel.royalmail.com"
+    extra_hosts:
+      - "services.royalmail.com:77.95.81.235"
+      - "www.royalmail.com:77.95.81.226"
+      - "www.parcelforce.com:77.95.81.228"
+      - "idp.royalmailgroup.com:77.95.81.233"
+  chrome-suven:
+    image: selenium/node-chrome:3.141
+    volumes:
+      - /dev/shm:/dev/shm
+      - /var/tmp/:/var/tmp/
+    depends_on:
+      - selenium-hub
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:5555"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    environment:
+      - HUB_HOST=${JOB_NAME}
+      - HUB_PORT=4444
+      - NODE_MAX_SESSION=1
+      - NODE_MAX_INSTANCES=1
+      - http_proxy=http://217.147.78.194:8080
+      - https_proxy=http://217.147.78.194:8080
+      - no_proxy="localhost, 127.0.0.1, wwwvagrant.royalmail.com, b2bvagrant.royalmail.com, b2bqa.royalmail.com, b2bqb.royalmail.com, b2bqt.royalmail.com, b2bqe.royalmail.com, b2btst.royalmail.com, wwwqa.royalmail.com, wwwqb.royalmail.com, wwwqt.royalmail.com, wwwtst.royalmail.com, wwwqa.royalmailgroup.com, wwwqt.royalmailgroup.com, eibqa.royalmail.com, eibqb.royalmail.com, eibqt.royalmail.com, eibtst.royalmail.com, .postoffice.co.uk, .royalmailgroup.com, wwwqs.royalmail.com, wwwqe.royalmail.com, wwwqa.parcelforce.com, wwwqt.parcelforce.com, wwwqe.parcelforce.com, wwwqs.parcelforce.com, wwwqa.ryml.me, idpqa.royalmailgroup.com, am01qa.royalmailgroup.com, am01qt.royalmailgroup.com, www8qa.royalmail.com, www8qt.royalmail.com, www8qs.royalmail.com, fam21qa.royalmailgroup.com, fam21qt.royalmailgroup.com, fam21qs.royalmailgroup.com, fam21tst.royalmailgroup.com, www.royalmail.com, www.parcelforce.com, idp.royalmailgroup.com, services.royalmail.com, parcel.royalmail.com"
+    extra_hosts:
+      - "services.royalmail.com:77.95.81.235"
+      - "www.royalmail.com:77.95.81.226"
+      - "www.parcelforce.com:77.95.81.228"
+      - "idp.royalmailgroup.com:77.95.81.233"
+  rm_wdio-framework:
+    image: node:14.16.0
+    volumes:
+      - ./:/tmp/webdriverio-cucumber
+      - /var/tmp/:/var/tmp/
+    container_name: rm_wdiofw_docrz_${JOB_NAME}
+    environment:
+      - http_proxy=http://217.147.78.194:8080
+      - https_proxy=http://217.147.78.194:8080
+    working_dir: /tmp/webdriverio-cucumber
+    command: bash -c "npm install --loglevel verbose && server=${application}-${environment} npm run docker_grid_jenkins -- --suite ${application}_${test} --cucumberOpts.tagExpression='@${environment}'"
+    depends_on:
+      - selenium-hub
+      - chrome-dbug
+      - chrome-gallant
+      - chrome-sleepy
+      - chrome-upbeat
+      - chrome-clever
+      - chrome-suven
